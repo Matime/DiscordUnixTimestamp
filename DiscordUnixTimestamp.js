@@ -22,7 +22,15 @@ function initialize() {
     inputDate.addEventListener('change', generatePreviewAndOutput);
     inputTime.addEventListener('change', generatePreviewAndOutput);
     inputFormat.addEventListener('change', generatePreviewAndOutput);
-    output.addEventListener('click',()=>{navigator.clipboard.writeText(output.value); OutputToConsole('Copied timestamp to clipboard!');})
+    output.addEventListener('click',()=>{
+        navigator.clipboard.writeText(output.value).then(()=>{
+            OutputToConsole('Copied timestamp to clipboard!');
+        }).catch(()=>{
+            OutputToConsole('Something went wrong while trying to copy to clipboard... Disabling click to copy functionality.🤔');
+            let new_element = output.cloneNode(true);
+            output.parentNode.replaceChild(new_element,output);
+        }); 
+    })
     generatePreviewAndOutput();   
 }
 function tdf(num) {
