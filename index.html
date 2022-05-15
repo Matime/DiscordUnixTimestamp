@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Discord Unix Timestamp</title>
+    </head>
+    <body>
+        <p>Javascript utilizes the clipboard API in order to allow you to click the timestamp to copy it to your clipboard.</p>
+        <table>
+            <tr>
+                <td>Date</td>
+                <td><input type="date" id="inputDate"/></td>
+            </tr>
+            <tr>
+                <td>Time</td>
+                <td><input type="time" id="inputTime"/></td>
+            </tr>
+            <tr>
+                <td>Format</td>
+                <td><select id="inputFormat">
+                    <option value="t">hh:mm AM/PM</option>
+                    <option value="T">hh:mm:ss AM/PM</option>
+                    <option value="d">MM/dd/yy</option>
+                    <option value="D">Month dd, yyyy</option>
+                    <option value="f">Month dd, yyyy at hh:mm AM/PM</option>
+                    <option value="F">Day, Month dd, yyyy at hh:mm AM/PM</option>
+                    <option value="R">in xx TimeUnits | xx TimeUnits ago</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Preview</td>
+                <td id="preview"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="output" readonly/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+        </table>
+        <script src="DiscordUnixTimestamp.js"></script>
+    </body>
+</html>
