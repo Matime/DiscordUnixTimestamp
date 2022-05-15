@@ -3,6 +3,8 @@ const inputTime = document.getElementById('inputTime');
 const inputFormat = document.getElementById('inputFormat');
 const tdPreview = document.getElementById('preview');
 const output = document.getElementById('output');
+const consoleOutput = document.getElementById('consoleOutput');
+let consoleOutputString = [];
 const formats = {
     "t": { timeStyle: 'short' },
     "T": { timeStyle: 'medium' },
@@ -20,11 +22,19 @@ function initialize() {
     inputDate.addEventListener('change', generatePreviewAndOutput);
     inputTime.addEventListener('change', generatePreviewAndOutput);
     inputFormat.addEventListener('change', generatePreviewAndOutput);
-    output.addEventListener('click',()=>{navigator.clipboard.writeText(output.value); alert('Copied timestamp to clipboard!');})
+    output.addEventListener('click',()=>{navigator.clipboard.writeText(output.value); OutputToConsole('Copied timestamp to clipboard!');})
     generatePreviewAndOutput();   
 }
 function tdf(num) {
     return num.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false});
+}
+function OutputToConsole(str){
+    var now = new Date();
+    var timestamp = new Intl.DateTimeFormat('en',formats['T']).format(now);
+    consoleOutputString.splice(0,0,(`[${timestamp}]: `+str));
+    if(consoleOutputString.length>10)
+        consoleOutputString.pop();
+    consoleOutput.innerHTML = consoleOutputString.join('<br/>');
 }
 function generatePreviewAndOutput() {
     const inputFormatVal = inputFormat.value;
@@ -39,9 +49,7 @@ function generatePreviewAndOutput() {
         dateString = getRelativeDifference(d);
     tdPreview.textContent = dateString;
     output.value =`<t:${d.getTime()/1000}:${inputFormatVal}>`;
-
 }
-
 function getRelativeDifference(d) {
     const diff = -((Date.now() - d.getTime()) / 1000) | 0;
     const absDiff = Math.abs(diff);
